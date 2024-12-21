@@ -27,20 +27,35 @@ def quiz_program():
 
         # Start the timer
         start_time = time.time()
-        answer = input("Your answer (1-4): ")
-        elapsed_time = time.time() - start_time
+        answer = None
 
-        if elapsed_time > time_limit:
-            print("Time's up! You didn't answer in time.")
-        elif options[int(answer) - 1] == correct_answer:
-            print("Correct!")
-            score += 1
-        else:
-            print(f"Wrong! The correct answer is: {correct_answer}")
-        
+        while True:
+            try:
+                answer = input("Your answer (1-4): ")
+                elapsed_time = time.time() - start_time
+
+                if elapsed_time > time_limit:
+                    print("Time's up! You didn't answer in time.")
+                    break
+
+                answer = int(answer)
+                if 1 <= answer <= 4:
+                    if options[answer - 1] == correct_answer:
+                        print("Correct!")
+                        score += 1
+                    else:
+                        print(f"Wrong! The correct answer is: {correct_answer}")
+                    break
+                else:
+                    print("Please enter a number between 1 and 4.")
+            except ValueError:
+                print("Invalid input. Please enter a number between 1 and 4.")
+
         # Display explanation
         print(f"Explanation: {explanation}")
 
     # Display the final score
     print(f"\nYour final score is: {score}/{len(questions)}")
-   
+
+# Run the quiz program
+quiz_program()
